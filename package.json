@@ -1,0 +1,29 @@
+{
+  "name": "lannister-pay",
+  "version": "1.0.0",
+  "description": "Lannister pay application for flutterwave recruitmen test.",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon index",
+    "start": "node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FemiFatokun03/flutterwave-test.git"
+  },
+  "keywords": [
+    "lannister-pay",
+    "flutterwave"
+  ],
+  "author": "Femi Fatokun",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FemiFatokun03/flutterwave-test/issues"
+  },
+  "homepage": "https://github.com/FemiFatokun03/flutterwave-test#readme",
+  "dependencies": {
+    "bp": "^0.1.1-beta",
+    "express": "^4.17.3",
+    "nodemon": "^2.0.15"
+  }
+}
