@@ -150,19 +150,25 @@ app.post("/compute-transaction-fee", (req, res)=>{
     const entityOrderedArray = [type, "*"];
     const entityPropertyOrderedArray = [entityId, entityBrand, entityIssuer, entityNumber, sixId, "*"];
 
-    for(let i = 0; i < entityPropertyOrderedArray.length; i++){
-        if(mostSpecificSpec.type == undefined){
+    if(mostSpecificSpec.type == undefined){
+        for(let i = 0; i < entityPropertyOrderedArray.length; i++){
             let eachEntityProperty = entityPropertyOrderedArray[i];
-            for(let j = 0; j < currencyOrderedArray.length; j++){
-                let eachCurrency = currencyOrderedArray[j];
-                for(let k = 0; k < localeOrderedArray.length; k++){
-                    let eachLocale = localeOrderedArray[k];
-                    for(let l = 0; l < entityOrderedArray.length; l++){
-                        let eachEntity = entityOrderedArray[l];
-                        let key = `${eachCurrency}-${eachLocale}-${eachEntity}-${eachEntityProperty}`;
-                        if(db[`${key}`] != undefined){
-                            mostSpecificSpec = db[`${key}`];
-                            break;
+            if(mostSpecificSpec.type == undefined){
+                for(let j = 0; j < currencyOrderedArray.length; j++){
+                    let eachCurrency = currencyOrderedArray[j];
+                    if(mostSpecificSpec.type == undefined){
+                        for(let k = 0; k < localeOrderedArray.length; k++){
+                            let eachLocale = localeOrderedArray[k];
+                            if(mostSpecificSpec.type == undefined){
+                                for(let l = 0; l < entityOrderedArray.length; l++){
+                                    let eachEntity = entityOrderedArray[l];
+                                    let key = `${eachCurrency}-${eachLocale}-${eachEntity}-${eachEntityProperty}`;
+                                    if(db[`${key}`] != undefined){
+                                        mostSpecificSpec = db[`${key}`];
+                                        break;
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -180,8 +186,8 @@ app.post("/compute-transaction-fee", (req, res)=>{
                 fee = (mostSpecificSpec.value);
             }else{
                 if(mostSpecificSpec.type == "FLAT_PERC"){
-                    let splitted = mostSpecificSpec.split(":");
-                    fee = splitted[0] + ((splitted[1] / 100) * amount);
+                    let splitted = mostSpecificSpec.value.split(":");
+                    fee = parseFloat(splitted[0]) + ((parseFloat(splitted[1]) / 100) * amount);
                 }
             }
         }
