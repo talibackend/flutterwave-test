@@ -24,7 +24,7 @@ const checkDuplicate = (db, obj)=>{
     
 }
 
-app.get('/', (res, res)=>{res.send("<h1>LannisterPay is running.</h1>")})
+app.get('/', (req, res)=>{res.send("<h1>LannisterPay is running.</h1>")})
 
 app.post('/fees', (req, res)=>{
     const body = req.body;
